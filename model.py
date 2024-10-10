@@ -51,7 +51,7 @@ linear_layer = nn.Linear(in_features = 2, out_features = 1)
 output = linear_layer(height_weight_feature)
 
 # model = nn.Sequential(
-#     nn.Linear(in_features = 2, out_features = 10),
+#     nn.Linear(in_features = 2, out_features = 10), 
 #     nn.Linear(in_features = 10, out_features = 5),
 #     nn.Linear(in_features = 5, out_features = 1)
 # )
@@ -102,17 +102,19 @@ output = model(height_weight_feature)
 # - **Data Loading (DataLoader):** While you converted your data to tensors, consider using a DataLoader from PyTorch to make the training process more efficient (batching data and shuffling).
 # - **Activation Function:** You've created the model but haven't added an activation function within it. This should be added between the linear layers to introduce non-linearity, which is essential for learning complex patterns. A common activation function for regression tasks is ReLU (nn.ReLU).
 
-loss = nn.MSELoss()
-
 # prompt: generate a code to implement the training loop
+
+loss = nn.MSELoss()
 
 optimizer = optim.Adam(model.parameters(), lr = 0.01)
 
 epochs = 500
 
 for epoch in range(epochs):
-	optimizer.zero_grad()  # Reset gradients
 
+	# Reset gradients
+	optimizer.zero_grad()
+	
 	# Forward pass
 	predictions = model(height_weight_feature)
 	loss_value = loss(predictions, target)
@@ -121,8 +123,8 @@ for epoch in range(epochs):
 	loss_value.backward()
 	optimizer.step()
 
-	# if (epoch + 1) % 10 == 0:
-	#   print(f"Epoch [{epoch+1}/{epochs}], Loss: {loss_value.item():.4f}")
+	if (epoch + 1) % 10 == 0:
+		print(f"Epoch [{epoch+1}/{epochs}], Loss: {loss_value.item():.4f}")
 
 # prompt: Generate a code that can perform model evaluations on test set
 
